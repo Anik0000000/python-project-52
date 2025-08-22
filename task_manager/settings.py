@@ -9,7 +9,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-development-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Динамические ALLOWED_HOSTS для Render
 ALLOWED_HOSTS = ['webserver', 'localhost', '127.0.0.1']
+
+# Автоматически добавляем домен Render
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Также добавляем текущий домен
+ALLOWED_HOSTS.append('python-project-52-j8mu.onrender.com')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
