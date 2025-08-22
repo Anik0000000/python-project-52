@@ -16,3 +16,14 @@ dependencies = [
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["task_manager", "users"]
+
+[tool.setuptools.package-dir]
+task_manager = "task_manager"
+users = "users"
+
+[tool.setuptools.package-data]
+task_manager = ["*.py", "**/*.py"]
+users = ["*.py", "**/*.py"]
