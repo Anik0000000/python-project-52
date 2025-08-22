@@ -1,23 +1,16 @@
+.PHONY: install migrate build render-start
+
 install:
-	uv sync --dev
+	uv sync
 
 migrate:
-	python manage.py migrate
+	uv run python manage.py migrate
 
 collectstatic:
-	python manage.py collectstatic --noinput
+	uv run python manage.py collectstatic --noinput
 
 build:
 	./build.sh
 
 render-start:
-	gunicorn task_manager.wsgi:application --bind 0.0.0.0:$${PORT:-8000}
-
-dev:
-	python manage.py runserver 0.0.0.0:8000
-
-lint:
-	flake8 .
-
-test:
-	python manage.py test
+	uv run gunicorn task_manager.wsgi:application --bind 0.0.0.0:$${PORT:-8000}
