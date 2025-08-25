@@ -4,9 +4,9 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'created_at']
-    list_filter = ['is_staff', 'is_superuser', 'created_at']
-    readonly_fields = ['created_at', 'updated_at']
+    list_display = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'date_joined']
+    list_filter = ['is_staff', 'is_superuser', 'date_joined']
+    readonly_fields = ['date_joined', 'last_login']
     fieldsets = UserAdmin.fieldsets + (
-        ('Timestamps', {'fields': ('created_at', 'updated_at')}),
+        ('Timestamps', {'fields': ('date_joined', 'last_login')}),
     )

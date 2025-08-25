@@ -35,14 +35,15 @@ DEBUG = os.getenv("DEBUG", False)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'webserver', 
-    'https://python-project-52-j8mu.onrender.com/',
+    'webserver',
+    'python-project-52-j8mu.onrender.com',
     ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -53,8 +54,6 @@ INSTALLED_APPS = [
     'task_manager',
     'task_manager.users',
     'task_manager.statuses',
-    'task_manager.tasks',
-    'task_manager.labels',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -117,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = []
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True

@@ -6,7 +6,7 @@
 <div class="container wrapper flex-grow-1">
     <h1 class="my-4">{% trans "Delete status" %}</h1>
     <p>
-      {% blocktrans %}Are you sure you want to delete {{ status }}?{% endblocktrans %}
+      {% blocktrans with status=object %}Are you sure you want to delete {{ status }}?{% endblocktrans %}
     </p>
     <form method="post">
         {% csrf_token %}

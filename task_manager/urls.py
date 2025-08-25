@@ -1,7 +1,7 @@
 """
 URL configuration for task_manager project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The [urlpatterns](file://\\wsl.localhost\Ubuntu\home\ivandozmorov\python-project-52\task_manager\users\urls.py#L4-L17) list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
@@ -14,17 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib import admin
 from django.urls import include, path
 
 from task_manager import views
 from task_manager.users.views import UserLoginView, UserLogoutView
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='index'),
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('users/', include('task_manager.users.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
-    path('tasks/', include('task_manager.tasks.urls')),
-    path('labels/', include('task_manager.labels.urls')),
+    # TODO: Implement in future steps
+    # path('tasks/', include('task_manager.tasks.urls')),
+    # path('labels/', include('task_manager.labels.urls')),
 ]
