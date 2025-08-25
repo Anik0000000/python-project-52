@@ -1,7 +1,6 @@
 import django_filters
 from django import forms
 from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
@@ -15,7 +14,8 @@ class TaskFilter(django_filters.FilterSet):
         queryset=Status.objects.all(),
         field_name='status',
         lookup_expr='exact',
-        empty_label=_('--------'),
+        empty_label='Статус',
+        label='Статус',
         widget=forms.Select(attrs={'class': 'form-control'})
     )
     
@@ -23,7 +23,8 @@ class TaskFilter(django_filters.FilterSet):
         queryset=User.objects.all(),
         field_name='executor',
         lookup_expr='exact',
-        empty_label=_('--------'),
+        empty_label='Исполнитель',
+        label='Исполнитель',
         widget=forms.Select(attrs={'class': 'form-control'})
     )
     
@@ -31,7 +32,8 @@ class TaskFilter(django_filters.FilterSet):
         queryset=Label.objects.all(),
         field_name='labels',
         lookup_expr='exact',
-        empty_label=_('--------'),
+        empty_label='Метка',
+        label='Метка',
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 

@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -10,32 +9,32 @@ class UserCreateForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=150,
         required=True,
-        label=_('First name'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Имя',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
-        label=_('Last name'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Фамилия',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'})
     )
     username = forms.CharField(
         max_length=150,
         required=True,
-        label=_('Username'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Имя пользователя',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
     )
     password1 = forms.CharField(
         required=True,
-        label=_("Password"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        help_text=_("Your password must contain at least 3 characters.")
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),
+        help_text="Ваш пароль должен содержать минимум 3 символа."
     )
     password2 = forms.CharField(
         required=True,
-        label=_("Confirm Password"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-        help_text=_("Enter the same password again for verification.")
+        label="Подтверждение пароля",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтверждение пароля'}),
+        help_text="Для подтверждения введите тот же пароль ещё раз."
     )
     
     class Meta:
@@ -55,12 +54,12 @@ class UserCreateForm(UserCreationForm):
 
         if password1 and password2:
             if password1 != password2:
-                self.add_error("password2", _("Passwords do not match."))
+                self.add_error("password2", "Пароли не совпадают.")
 
             if len(password1) < 3:
                 self.add_error(
                     "password1",
-                    _("The entered password is too short. It must contain at least 3 characters."),
+                    "Введённый пароль слишком короткий. Он должен содержать минимум 3 символа.",
                 )
         return cleaned_data
 
@@ -82,20 +81,20 @@ class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
         max_length=150,
         required=True,
-        label=_('First name'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Имя',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
-        label=_('Last name'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Фамилия',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'})
     )
     username = forms.CharField(
         max_length=150,
         required=True,
-        label=_('Username'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Имя пользователя',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
     )
 
     class Meta:
@@ -111,7 +110,7 @@ class UserUpdateForm(forms.ModelForm):
         if User.objects.filter(username=username).exclude(
             pk=self.instance.pk).exists():
             raise forms.ValidationError(
-                _("A user with that username already exists.")
+                "Пользователь с таким именем уже существует."
             )
 
         return username
@@ -119,10 +118,10 @@ class UserUpdateForm(forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
-        label=_('Username'),
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        label='Имя пользователя',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
     )
     password = forms.CharField(
-        label=_("Password"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
     )
