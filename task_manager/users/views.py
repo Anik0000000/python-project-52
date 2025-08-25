@@ -82,7 +82,7 @@ class UserDeleteView(
             return super(LoginRequiredMixin, self).handle_no_permission()
         messages.error(
             self.request,
-            "У вас нет прав на выполнение этого действия."
+            "У вас нет прав для изменения этого пользователя."
             )
         return redirect('users_index')
 
