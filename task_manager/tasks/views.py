@@ -110,6 +110,6 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         
         messages.error(
             self.request,
-            "Вы можете удалять только свои задачи."
+            "Задачу может удалить только ее автор."
         )
         return redirect('tasks_index')
