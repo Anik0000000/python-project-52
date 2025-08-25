@@ -88,6 +88,24 @@ class UserDeleteView(
         return redirect('users_index')
 
     def post(self, request, *args, **kwargs):
+        user_to_delete = self.get_object()
+        
+        # Check if user has authored tasks
+        if user_to_delete.authored_tasks.exists():
+            messages.error(
+                request,
+                _("Cannot delete user because they have created tasks.")
+            )
+            return redirect(self.success_url)
+        
+        # Check if user is assigned to tasks
+        if user_to_delete.assigned_tasks.exists():
+            messages.error(
+                request,
+                _("Cannot delete user because they are assigned to tasks.")
+            )
+            return redirect(self.success_url)
+            
         try:
             return super().post(request, *args, **kwargs)
         except ProtectedError:

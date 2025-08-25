@@ -10,8 +10,17 @@
 - User registration, login, logout
 - User profile management (only own profile)
 - User list (public access)
+- User protection (cannot delete if has tasks)
 
 ### Status Management
 - Create, view, update, and delete statuses
 - Status protection (cannot delete if used by tasks)
 - Login required for all status operations
+
+### Task Management
+- Create, view, update, and delete tasks
+- Task detail view with full information
+- Automatic author assignment on creation
+- Only task author can delete tasks
+- Login required for all task operations
+- Foreign key relationships (status, author, executor)
