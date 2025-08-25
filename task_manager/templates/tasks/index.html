@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
-{% load i18n django_bootstrap5 %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4">{% trans "Tasks" %}</h1>
+    <h1 class="my-4">Задачи</h1>
     
     <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">
-        {% trans "Create task" %}
+        Создать задачу
     </a>
 
     <form method="get" class="mb-4">
@@ -30,12 +30,12 @@
                         class="form-check-input"
                         {% if request.GET.self_tasks %}checked{% endif %}>
                 <label class="form-check-label" for="id_self_tasks">
-                        {% trans "Only your own tasks" %}
+                        Только свои задачи
                 </label>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">{% trans "Show" %}</button>
+        <button type="submit" class="btn btn-primary">Показать</button>
     </form>
 
 
@@ -43,11 +43,11 @@
         <thead>
             <tr>
                 <th class="col-1">ID</th>
-                <th class="col-2">{% trans "Name" %}</th>
-                <th class="col-2">{% trans "Status" %}</th>
-                <th class="col-2">{% trans "Author" %}</th>
-                <th class="col-2">{% trans "Executor" %}</th>
-                <th class="col-2">{% trans "Creation date" %}</th>
+                <th class="col-2">Имя</th>
+                <th class="col-2">Статус</th>
+                <th class="col-2">Автор</th>
+                <th class="col-2">Исполнитель</th>
+                <th class="col-2">Дата создания</th>
                 <th class="col-1"></th>
             </tr>
         </thead>
@@ -66,11 +66,11 @@
                 <td class="col-2">{{ task.created_at|date:"d.m.Y H:i" }}</td>
                 <td class="col-1">
                     <a href="{% url 'task_update' task.id %}">
-                        {% trans "Update" %}
+                        Изменить
                     </a>
                     <br>
                     <a href="{% url 'task_delete' task.id %}">
-                        {% trans "Delete" %}
+                        Удалить
                     </a>
                 </td>
             </tr>
