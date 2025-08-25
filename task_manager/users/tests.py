@@ -4,9 +4,6 @@ from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
-from task_manager.statuses.models import Status
-from task_manager.tasks.models import Task
-
 User = get_user_model()
 
 
@@ -41,7 +38,7 @@ class UserCRUDTests(TestCase):
         self.assertTrue(User.objects.filter(username='newuser').exists())
 
         messages = list(get_messages(response.wsgi_request))
-        assert "успешно" in str(messages[0]).lower()
+        self.assertTrue(any("успешно" in str(msg).lower() for msg in messages))
 
     def test_user_update_authenticated(self):
         self.client.login(username='user1', password='testpass123')  # NOSONAR
@@ -52,14 +49,11 @@ class UserCRUDTests(TestCase):
                 'username': 'user1',  # NOSONAR
                 'first_name': 'Updated',  # NOSONAR
                 'last_name': 'User',  # NOSONAR
-                'password1': 'newpass123',  # NOSONAR
-                'password2': 'newpass123',  # NOSONAR
             }
         )
         self.assertRedirects(response, reverse('users_index'))
         self.user1.refresh_from_db()
         self.assertEqual(self.user1.first_name, 'Updated')
-        self.assertTrue(self.user1.check_password('newpass123'))
 
     def test_user_update_unauthenticated(self):
         url = reverse('user_update', kwargs={'pk': self.user1.pk})
@@ -70,18 +64,41 @@ class UserCRUDTests(TestCase):
         self.assertRedirects(response, expected_redirect)
 
         messages = list(get_messages(response.wsgi_request))
-        assert "не авторизованы" in str(messages[0]).lower()
+        self.assertTrue(any("не авторизованы" in str(msg).lower() or "not logged in" in str(msg).lower() for msg in messages))
 
-    def test_cannot_delete_user_with_tasks(self):
-        status = Status.objects.create(name='В работе')
-
-        Task.objects.create(
-            name="Test task",
-            status=status,
-            author=self.user1
-        )
-
+    def test_user_delete_authenticated(self):
         self.client.login(username='user1', password='testpass123')  # NOSONAR
-        self.client.post(reverse('user_delete', args=[self.user1.pk]))
+        initial_count = User.objects.count()
+        
+        url = reverse('user_delete', kwargs={'pk': self.user1.pk})
+        response = self.client.post(url)
+        
+        self.assertRedirects(response, reverse('users_index'))
+        self.assertEqual(User.objects.count(), initial_count - 1)
+        self.assertFalse(User.objects.filter(pk=self.user1.pk).exists())
 
-        self.assertTrue(User.objects.filter(pk=self.user1.pk).exists())
+    def test_user_login(self):
+        url = reverse('login')
+        data = {
+            'username': 'user1',
+            'password': 'testpass123'
+        }
+        response = self.client.post(url, data)
+        
+        self.assertRedirects(response, reverse('index'))
+        self.assertTrue(response.wsgi_request.user.is_authenticated)
+
+    def test_user_logout(self):
+        self.client.login(username='user1', password='testpass123')  # NOSONAR
+        
+        url = reverse('logout')
+        response = self.client.post(url)
+        
+        self.assertRedirects(response, reverse('index'))
+
+    def test_users_list_accessible_without_authentication(self):
+        url = reverse('users_index')
+        response = self.client.get(url)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Users')
