@@ -118,7 +118,7 @@ class UserDeleteView(
 class UserLoginView(SuccessMessageMixin, LoginView):
     form_class = UserLoginForm
     template_name = 'users/login.html'
-    success_message = "Вы вошли в систему"
+    success_message = "Вы залогинены"
     
     def get_success_url(self):
         return reverse_lazy('index')
