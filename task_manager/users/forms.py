@@ -96,10 +96,22 @@ class UserUpdateForm(forms.ModelForm):
         label='Имя пользователя',
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
     )
+    password1 = forms.CharField(
+        required=False,
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),
+        help_text="Ваш пароль должен содержать минимум 3 символа."
+    )
+    password2 = forms.CharField(
+        required=False,
+        label="Подтверждение пароля",
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтверждение пароля'}),
+        help_text="Для подтверждения введите тот же пароль ещё раз."
+    )
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username']
+        fields = ['first_name', 'last_name', 'username', 'password1', 'password2']
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -114,6 +126,31 @@ class UserUpdateForm(forms.ModelForm):
             )
 
         return username
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 or password2:
+            if password1 != password2:
+                self.add_error("password2", "Пароли не совпадают.")
+
+            if password1 and len(password1) < 3:
+                self.add_error(
+                    "password1",
+                    "Введённый пароль слишком короткий. Он должен содержать минимум 3 символа.",
+                )
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data.get("password1")
+        if password:
+            user.set_password(password)
+        if commit:
+            user.save()
+        return user
 
 
 class UserLoginForm(AuthenticationForm):
