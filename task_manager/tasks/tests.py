@@ -202,7 +202,7 @@ class TaskCRUDTests(TestCase):
             'description': 'Test auto author',
             'status': self.status1.pk,
         }
-        response = self.client.post(url, data)
+        self.client.post(url, data)
         
         task = Task.objects.get(name='Auto Author Task')
         self.assertEqual(task.author, self.user2)
