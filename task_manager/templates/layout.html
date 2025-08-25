@@ -33,14 +33,11 @@
               <a class="nav-link" href="{% url 'statuses_index' %}">{% trans "Statuses" %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'tasks_index' %}">{% trans "Tasks" %}</a>
-            </li>
-            {# TODO: Enable in future steps when apps are implemented #}
-            {% comment %}
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'labels_index' %}">{% trans "Labels" %}</a>
             </li>
-            {% endcomment %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'tasks_index' %}">{% trans "Tasks" %}</a>
+            </li>
             {% endif %}
 
           </ul>

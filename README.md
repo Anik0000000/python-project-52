@@ -24,3 +24,11 @@
 - Only task author can delete tasks
 - Login required for all task operations
 - Foreign key relationships (status, author, executor)
+- Many-to-many relationship with labels
+
+### Label Management
+- Create, view, update, and delete labels
+- Label protection (cannot delete if used by tasks)
+- Many-to-many relationship with tasks
+- Multiple label selection for tasks
+- Login required for all label operations
