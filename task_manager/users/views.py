@@ -128,5 +128,5 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
-        messages.success(request, "Вы разалогинены")
+        messages.success(request, "Вы разлогинены")
         return super().dispatch(request, *args, **kwargs)
