@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 
@@ -39,7 +38,7 @@ class TasksIndexView(LoginRequiredMixin, FilterView):
     def handle_no_permission(self):
         messages.error(
             self.request,
-            _("You are not logged in! Please log in.")
+            "Вы не авторизованы! Пожалуйста, выполните вход."
         )
         return super().handle_no_permission()
 
@@ -52,7 +51,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def handle_no_permission(self):
         messages.error(
             self.request,
-            _("You are not logged in! Please log in.")
+            "Вы не авторизованы! Пожалуйста, выполните вход."
         )
         return super().handle_no_permission()
 
@@ -62,7 +61,7 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskForm
     template_name = 'tasks/create.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Task created successfully')
+    success_message = 'Задача успешно создана'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -71,7 +70,7 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def handle_no_permission(self):
         messages.error(
             self.request,
-            _("You are not logged in! Please log in.")
+            "Вы не авторизованы! Пожалуйста, выполните вход."
         )
         return super().handle_no_permission()
 
@@ -81,12 +80,12 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TaskForm
     template_name = 'tasks/update.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Task updated successfully')
+    success_message = 'Задача успешно изменена'
 
     def handle_no_permission(self):
         messages.error(
             self.request,
-            _("You are not logged in! Please log in.")
+            "Вы не авторизованы! Пожалуйста, выполните вход."
         )
         return super().handle_no_permission()
 
@@ -95,7 +94,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Task deleted successfully')
+    success_message = 'Задача успешно удалена'
 
     def test_func(self):
         task = self.get_object()
@@ -105,12 +104,12 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         if not self.request.user.is_authenticated:
             messages.error(
                 self.request,
-                _("You are not logged in! Please log in.")
+                "Вы не авторизованы! Пожалуйста, выполните вход."
             )
             return super(LoginRequiredMixin, self).handle_no_permission()
         
         messages.error(
             self.request,
-            _("You can only delete your own tasks.")
+            "Вы можете удалять только свои задачи."
         )
         return redirect('tasks_index')

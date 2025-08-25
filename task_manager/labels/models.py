@@ -1,21 +1,20 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Label(models.Model):
     name = models.CharField(
         max_length=100,
         unique=True,
-        verbose_name=_('Name')
+        verbose_name='Имя'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Creation date')
+        verbose_name='Дата создания'
     )
 
     class Meta:
-        verbose_name = _('Label')
-        verbose_name_plural = _('Labels')
+        verbose_name = 'Метка'
+        verbose_name_plural = 'Метки'
         ordering = ['created_at']
 
     def __str__(self):

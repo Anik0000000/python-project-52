@@ -1,18 +1,17 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
-{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">{% trans "Statuses" %}</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'status_create' %}">{% trans "Create status" %}</a>
+    <h1 class="my-4">Статусы</h1>
+    <a class="btn btn-primary mb-3" href="{% url 'status_create' %}">Создать статус</a>
 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th class="col-1">ID</th>
-                <th class="col-5">{% trans "Name" %}</th>
-                <th class="col-1">{% trans "Creation date" %}</th>
+                <th class="col-5">Имя</th>
+                <th class="col-1">Дата создания</th>
                 <th class="col-1"></th>
             </tr>
         </thead>
@@ -23,14 +22,14 @@
                 <td class="col-5">{{ status.name }}</td>
                 <td class="col-1">{{ status.created_at|date:"d.m.Y H:i" }}</td>
                 <td class="col-1">
-                    <a href="{% url 'status_update' status.id %}">{% trans "Edit" %}</a>
+                    <a href="{% url 'status_update' status.id %}">Изменить</a>
                     <br>
-                    <a href="{% url 'status_delete' status.id %}">{% trans "Delete" %}</a>
+                    <a href="{% url 'status_delete' status.id %}">Удалить</a>
                 </td>
             </tr>
         {% empty %}
             <tr>
-                <td colspan="4">{% trans "No statuses found" %}</td>
+                <td colspan="4">Статусы не найдены</td>
             </tr>
         {% endfor %}
         </tbody>

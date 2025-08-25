@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 from task_manager.statuses.models import Status
 
@@ -10,22 +9,22 @@ User = get_user_model()
 class Task(models.Model):
     name = models.CharField(
         max_length=100,
-        verbose_name=_('Name')
+        verbose_name='Имя'
     )
     description = models.TextField(
         blank=True,
-        verbose_name=_('Description')
+        verbose_name='Описание'
     )
     status = models.ForeignKey(
         Status,
         on_delete=models.PROTECT,
-        verbose_name=_('Status')
+        verbose_name='Статус'
     )
     author = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
         related_name='authored_tasks',
-        verbose_name=_('Author')
+        verbose_name='Автор'
     )
     executor = models.ForeignKey(
         User,
@@ -33,22 +32,22 @@ class Task(models.Model):
         related_name='assigned_tasks',
         blank=True,
         null=True,
-        verbose_name=_('Executor')
+        verbose_name='Исполнитель'
     )
     labels = models.ManyToManyField(
         'labels.Label',
         blank=True,
         related_name='tasks',
-        verbose_name=_('Labels')
+        verbose_name='Метки'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        verbose_name=_('Creation date')
+        verbose_name='Дата создания'
     )
 
     class Meta:
-        verbose_name = _('Task')
-        verbose_name_plural = _('Tasks')
+        verbose_name = 'Задача'
+        verbose_name_plural = 'Задачи'
         ordering = ['-created_at']
 
     def __str__(self):

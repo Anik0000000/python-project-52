@@ -1,14 +1,13 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
-{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-<h1 class="my-4">{% trans "Registration" %}</h1>
+<h1 class="my-4">Регистрация</h1>
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form %}
-  <input class="btn btn-primary" type="submit" value="{% trans 'Register' %}">
+  <input class="btn btn-primary" type="submit" value="Зарегистрировать">
 </form>
 </div>
 {% endblock %}

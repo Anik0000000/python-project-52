@@ -1,16 +1,15 @@
 {% extends 'layout.html' %}
 {% load django_bootstrap5 %}
-{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">{% trans "Delete status" %}</h1>
+    <h1 class="my-4">Удаление статуса</h1>
     <p>
-      {% blocktrans with status=object %}Are you sure you want to delete {{ status }}?{% endblocktrans %}
+      Вы уверены, что хотите удалить {{ object }}?
     </p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
     </form>
 </div>
 {% endblock %}
