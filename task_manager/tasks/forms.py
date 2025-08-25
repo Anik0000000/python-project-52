@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
+from task_manager.statuses.models import Status
+
 from .models import Task
 
 User = get_user_model()
@@ -13,12 +14,19 @@ class TaskForm(forms.ModelForm):
         max_length=100,
         required=True,
         label='Имя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя'
+        })
     )
     description = forms.CharField(
         required=False,
         label='Описание',
-        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Описание'})
+        widget=forms.Textarea(attrs={
+            'class': 'form-control', 
+            'rows': 3, 
+            'placeholder': 'Описание'
+        })
     )
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),

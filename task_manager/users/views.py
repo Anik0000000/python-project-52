@@ -101,7 +101,8 @@ class UserDeleteView(
         if user_to_delete.assigned_tasks.exists():
             messages.error(
                 request,
-                "Невозможно удалить пользователя, потому что он назначен на задачи."
+                "Невозможно удалить пользователя, потому что он "
+                "назначен на задачи."
             )
             return redirect(self.success_url)
             

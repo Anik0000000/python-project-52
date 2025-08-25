@@ -1,7 +1,10 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Anik0000000/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Anik0000000/python-project-52/actions)
 
+[![CI](https://github.com/Anik0000000/python-project-52/actions/workflows/pyci.yml/badge.svg)](https://github.com/Anik0000000/python-project-52/actions/workflows/pyci.yml)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Anik0000000_python-project-52&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Anik0000000_python-project-52)
+
 ## Demo
 [Deployed application](https://python-project-52-j8mu.onrender.com/)
 

@@ -90,7 +90,12 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super().handle_no_permission()
 
 
-class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(
+    LoginRequiredMixin, 
+    UserPassesTestMixin, 
+    SuccessMessageMixin, 
+    DeleteView
+):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')

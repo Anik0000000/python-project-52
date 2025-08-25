@@ -73,7 +73,8 @@ class LabelDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         if label_to_delete.tasks.exists():
             messages.error(
                 request,
-                "Невозможно удалить метку, потому что она используется одной или несколькими задачами."
+                "Невозможно удалить метку, потому что она используется "
+                "одной или несколькими задачами."
             )
             return redirect(self.success_url)
             
@@ -82,6 +83,7 @@ class LabelDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         except ProtectedError:
             messages.error(
                 request,
-                "Невозможно удалить метку, потому что она используется одной или несколькими задачами."
+                "Невозможно удалить метку, потому что она используется "
+                "одной или несколькими задачами."
             )
             return redirect(self.success_url)

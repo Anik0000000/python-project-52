@@ -8,7 +8,10 @@ class StatusForm(forms.ModelForm):
         max_length=100,
         required=True,
         label='Имя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя'
+        })
     )
 
     class Meta:
@@ -20,11 +23,17 @@ class StatusForm(forms.ModelForm):
         
         if self.instance.pk:
             # For updates, exclude current instance from uniqueness check
-            if Status.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
-                raise forms.ValidationError("Статус с таким именем уже существует.")
+            if Status.objects.filter(name=name).exclude(
+                pk=self.instance.pk
+            ).exists():
+                raise forms.ValidationError(
+                    "Статус с таким именем уже существует."
+                )
         else:
             # For creation, check if name already exists
             if Status.objects.filter(name=name).exists():
-                raise forms.ValidationError("Статус с таким именем уже существует.")
+                raise forms.ValidationError(
+                    "Статус с таким именем уже существует."
+                )
         
         return name

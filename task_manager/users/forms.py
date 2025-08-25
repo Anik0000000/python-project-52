@@ -10,30 +10,45 @@ class UserCreateForm(UserCreationForm):
         max_length=150,
         required=True,
         label='Имя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя'
+        })
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
         label='Фамилия',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Фамилия'
+        })
     )
     username = forms.CharField(
         max_length=150,
         required=True,
         label='Имя пользователя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя пользователя'
+        })
     )
     password1 = forms.CharField(
         required=True,
         label="Пароль",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Пароль'
+        }),
         help_text="Ваш пароль должен содержать минимум 3 символа."
     )
     password2 = forms.CharField(
         required=True,
         label="Подтверждение пароля",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтверждение пароля'}),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Подтверждение пароля'
+        }),
         help_text="Для подтверждения введите тот же пароль ещё раз."
     )
     
@@ -59,7 +74,8 @@ class UserCreateForm(UserCreationForm):
             if len(password1) < 3:
                 self.add_error(
                     "password1",
-                    "Введённый пароль слишком короткий. Он должен содержать минимум 3 символа.",
+                    "Введённый пароль слишком короткий. "
+                    "Он должен содержать минимум 3 символа.",
                 )
         return cleaned_data
 
@@ -82,36 +98,53 @@ class UserUpdateForm(forms.ModelForm):
         max_length=150,
         required=True,
         label='Имя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя'
+        })
     )
     last_name = forms.CharField(
         max_length=150,
         required=True,
         label='Фамилия',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Фамилия'
+        })
     )
     username = forms.CharField(
         max_length=150,
         required=True,
         label='Имя пользователя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя пользователя'
+        })
     )
     password1 = forms.CharField(
         required=False,
         label="Пароль",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'}),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Пароль'
+        }),
         help_text="Ваш пароль должен содержать минимум 3 символа."
     )
     password2 = forms.CharField(
         required=False,
         label="Подтверждение пароля",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтверждение пароля'}),
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Подтверждение пароля'
+        }),
         help_text="Для подтверждения введите тот же пароль ещё раз."
     )
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'password1', 'password2']
+        fields = [
+            'first_name', 'last_name', 'username', 'password1', 'password2'
+        ]
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -139,7 +172,8 @@ class UserUpdateForm(forms.ModelForm):
             if password1 and len(password1) < 3:
                 self.add_error(
                     "password1",
-                    "Введённый пароль слишком короткий. Он должен содержать минимум 3 символа.",
+                    "Введённый пароль слишком короткий. "
+                    "Он должен содержать минимум 3 символа.",
                 )
         return cleaned_data
 
@@ -156,9 +190,15 @@ class UserUpdateForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         label='Имя пользователя',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя пользователя'})
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Имя пользователя'
+        })
     )
     password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Пароль'
+        })
     )

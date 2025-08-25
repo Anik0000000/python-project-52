@@ -64,7 +64,13 @@ class UserCRUDTests(TestCase):
         self.assertRedirects(response, expected_redirect)
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("не авторизованы" in str(msg).lower() or "not logged in" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any(
+                "не авторизованы" in str(msg).lower() or 
+                "not logged in" in str(msg).lower() 
+                for msg in messages
+            )
+        )
 
     def test_user_delete_authenticated(self):
         self.client.login(username='user1', password='testpass123')  # NOSONAR

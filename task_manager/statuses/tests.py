@@ -59,7 +59,9 @@ class StatusCRUDTests(TestCase):
         self.assertTrue(Status.objects.filter(name='New Status').exists())
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_status_create_duplicate_name(self):
         """Test that duplicate status names are not allowed"""
@@ -97,7 +99,9 @@ class StatusCRUDTests(TestCase):
         self.assertEqual(status.name, 'Updated Name')
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_status_delete_requires_login(self):
         """Test that status deletion requires authentication"""
@@ -123,7 +127,9 @@ class StatusCRUDTests(TestCase):
         self.assertFalse(Status.objects.filter(pk=status.pk).exists())
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_status_str_representation(self):
         """Test string representation of Status model"""

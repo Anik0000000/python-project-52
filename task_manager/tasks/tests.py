@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
+
 from .models import Task
 
 User = get_user_model()
@@ -116,7 +117,9 @@ class TaskCRUDTests(TestCase):
         self.assertEqual(new_task.status, self.status1)
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_task_update_requires_login(self):
         """Test that task update requires authentication"""
@@ -147,7 +150,9 @@ class TaskCRUDTests(TestCase):
         self.assertEqual(self.task1.executor, self.user1)
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_task_delete_requires_login(self):
         """Test that task deletion requires authentication"""
@@ -171,7 +176,9 @@ class TaskCRUDTests(TestCase):
         self.assertFalse(Task.objects.filter(pk=self.task1.pk).exists())
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("successfully" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("successfully" in str(msg).lower() for msg in messages)
+        )
 
     def test_task_delete_by_non_author(self):
         """Test that non-author cannot delete task"""
@@ -186,7 +193,9 @@ class TaskCRUDTests(TestCase):
         self.assertTrue(Task.objects.filter(pk=self.task1.pk).exists())
 
         messages = list(get_messages(response.wsgi_request))
-        self.assertTrue(any("your own tasks" in str(msg).lower() for msg in messages))
+        self.assertTrue(
+            any("your own tasks" in str(msg).lower() for msg in messages)
+        )
 
     def test_task_str_representation(self):
         """Test string representation of Task model"""
