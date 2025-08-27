@@ -104,7 +104,11 @@ if DATABASE_URL.startswith("sqlite"):
     }
 else:
     DATABASES = {
-        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=not DEBUG)
+        "default": dj_database_url.parse(
+            DATABASE_URL, 
+            conn_max_age=600, 
+            ssl_require=not DEBUG
+        )
     }
 
 
@@ -120,12 +124,7 @@ AUTH_PASSWORD_VALIDATORS = []
 LANGUAGE_CODE = 'ru'
 USE_I18N = False
 USE_L10N = True
-USE_TZ = True
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
 USE_TZ = True
 
 
