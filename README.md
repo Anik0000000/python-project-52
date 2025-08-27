@@ -133,3 +133,27 @@ This application is configured for deployment on Render.com:
    ```bash
    make render-start
    ```
+
+## SonarCloud Integration
+
+This project uses SonarCloud for code quality analysis and test coverage tracking. To set it up in your forked repository:
+
+1. **Create a SonarCloud Account**
+   - Go to [SonarCloud](https://sonarcloud.io/) and sign up using your GitHub account
+
+2. **Set Up Your Project**
+   - Create a new project in SonarCloud
+   - Select GitHub as the integration method
+   - Choose your repository
+
+3. **Configure GitHub Secrets**
+   - Go to your GitHub repository's Settings > Secrets and variables > Actions
+   - Add a new repository secret named `SONAR_TOKEN` with the token generated in SonarCloud
+
+4. **Verify Configuration Files**
+   - Ensure `sonar-project.properties` has the correct project key and organization
+   - Make sure `.github/workflows/sonarqube.yml` workflow is present
+
+5. **Run Analysis**
+   - Analysis will run automatically on push to main branch or when creating pull requests
+   - You can manually trigger the workflow from the Actions tab in GitHub

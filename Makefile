@@ -36,6 +36,8 @@ coverage:
 test-report:
 	chmod +x ./run_tests.sh
 	./run_tests.sh
+	@if [ -f "coverage.xml" ]; then echo "Coverage report generated successfully"; else echo "ERROR: coverage.xml not generated"; exit 1; fi
+	@if [ -f "pytest-report.xml" ]; then echo "Test report generated successfully"; else echo "ERROR: pytest-report.xml not generated"; exit 1; fi
 
 ci-install:
 	uv sync --group dev
