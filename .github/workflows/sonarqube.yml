@@ -34,7 +34,10 @@ jobs:
         run: uv pip install -e .[dev]
         
       - name: Run tests with coverage
-        run: make coverage
+        run: make test-report
+        env:
+          SECRET_KEY: "test-key-for-ci"
+          DEBUG: "True"
       
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master

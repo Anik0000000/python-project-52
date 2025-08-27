@@ -3,8 +3,6 @@
 
 [![CI](https://github.com/Anik0000000/python-project-52/actions/workflows/pyci.yml/badge.svg)](https://github.com/Anik0000000/python-project-52/actions/workflows/pyci.yml)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Anik0000000_python-project-52&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Anik0000000_python-project-52)
-
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Anik0000000_python-project-52&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Anik0000000_python-project-52)
 
 ## Demo
@@ -96,7 +94,17 @@
    make test
    ```
 
-6. **Run linting**
+6. **Generate test coverage report**
+   ```bash
+   make coverage
+   ```
+
+7. **Generate SonarQube-compatible test reports**
+   ```bash
+   make test-report
+   ```
+
+8. **Run linting**
    ```bash
    make lint
    ```

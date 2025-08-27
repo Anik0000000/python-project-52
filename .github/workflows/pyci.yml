@@ -31,3 +31,6 @@ jobs:
 
     - name: Run tests
       run: make test
+      env:
+        SECRET_KEY: "test-key-for-ci"
+        DEBUG: "True"

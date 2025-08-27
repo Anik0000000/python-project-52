@@ -36,3 +36,11 @@ exclude = [
     "*/migrations/*",
     "*/settings.py",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "task_manager"]
+DJANGO_SETTINGS_MODULE = "task_manager.settings"
+testpaths = ["task_manager"]
+python_files = ["tests.py", "test_*.py"]
+django_find_project = false
+norecursedirs = ["venv", ".venv", "migrations", "__pycache__"]
