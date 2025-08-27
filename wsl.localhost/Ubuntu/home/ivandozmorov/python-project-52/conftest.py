@@ -9,7 +9,6 @@ import pytest
 from django.conf import settings
 from django.core.management import call_command
 
-
 # Make Django settings accessible to pytest
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "task_manager.settings")
 django.setup()
