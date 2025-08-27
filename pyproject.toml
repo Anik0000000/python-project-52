@@ -44,3 +44,4 @@ testpaths = ["task_manager"]
 python_files = ["tests.py", "test_*.py"]
 django_find_project = false
 norecursedirs = ["venv", ".venv", "migrations", "__pycache__"]
+addopts = "--reuse-db"

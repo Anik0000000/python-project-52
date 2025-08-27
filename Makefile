@@ -19,21 +19,21 @@ render-start:
 build:
 	./build.sh
 
-lint:
+lint: dev-install
 	uv run ruff check
 
 lint-fix:
 	uv run ruff check --fix
 
-test:
-	uv run pytest -v
+test: dev-install
+	uv run -- python -m pytest -v
 
-coverage:
+coverage: dev-install
 	uv run coverage run --source=task_manager --omit='*/migrations/*,*/settings.py,*/venv/*,*/.venv/*' -m pytest
 	uv run coverage xml
 	uv run coverage report --show-missing --skip-covered
 
-test-report:
+test-report: dev-install
 	chmod +x ./run_tests.sh
 	./run_tests.sh
 	@if [ -f "coverage.xml" ]; then echo "Coverage report generated successfully"; else echo "ERROR: coverage.xml not generated"; exit 1; fi

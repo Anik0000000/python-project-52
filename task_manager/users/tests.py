@@ -1,4 +1,3 @@
-import pytest
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.test import TestCase
@@ -7,7 +6,6 @@ from django.urls import reverse
 User = get_user_model()
 
 
-@pytest.mark.django_db
 class UserCRUDTests(TestCase):
     fixtures = ['users.json']
 
@@ -107,4 +105,4 @@ class UserCRUDTests(TestCase):
         response = self.client.get(url)
         
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Users')
+        self.assertContains(response, 'Пользователи')
