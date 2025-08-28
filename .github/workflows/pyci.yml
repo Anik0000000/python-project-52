@@ -1,35 +1,69 @@
-name: CI
-on: [push, pull_request]
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  test:
+  test-and-sonarqube:
     runs-on: ubuntu-latest
+
+    env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DJANGO_SETTINGS_MODULE: task_manager.settings
+        ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
+        ROLLBAR_ENV: development
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Install UV
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-        
-    - name: Create virtual environment
-      run: uv venv
-  
-    - name: Activate venv
-      run: source .venv/bin/activate
-  
-    - name: Install dependencies
-      run: uv pip install -e .[dev]
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-    - name: Run linter and tests
-      run: |
-        make lint
-        make test
-      env:
-        SECRET_KEY: "test-key-for-ci"
-        DEBUG: "True"
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: make ci-install
+
+      - name: Show versions
+        run: |
+          python --version
+          uv --version
+          uv run python -c "import django,sys; print('Django', django.get_version())"
+      
+      - name: Run Ruff linter
+        run: make lint
+
+      - name: Run migrations
+        run: make ci-migrate
+
+      - name: Run tests with coverage
+        run: make ci-test
+      - name: SonarQubeScan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.projectKey=Anik0000000_python-project-52
+            -Dsonar.organization=anik0000000
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.projectName=python-project-52
+            -Dsonar.sources=task_manager
+            -Dsonar.tests=task_manager
+            -Dsonar.test.inclusions=**/tests.py
+            -Dsonar.exclusions=task_manager/*/migrations/**,task_manager/settings.py
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.python.xunit.reportPath=pytest-report.xml
+            -Dsonar.sourceEncoding=UTF-8

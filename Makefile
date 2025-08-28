@@ -33,11 +33,6 @@ coverage: dev-install
 	uv run coverage xml
 	uv run coverage report --show-missing --skip-covered
 
-test-report: dev-install
-	chmod +x ./run_tests.sh
-	./run_tests.sh
-	@if [ -f "coverage.xml" ]; then echo "Coverage report generated successfully"; else echo "ERROR: coverage.xml not generated"; exit 1; fi
-	@if [ -f "pytest-report.xml" ]; then echo "Test report generated successfully"; else echo "ERROR: pytest-report.xml not generated"; exit 1; fi
 
 ci-install:
 	uv sync --group dev
@@ -47,6 +42,6 @@ ci-migrate:
 	uv run python manage.py migrate --noinput
 
 ci-test:
-	uv run coverage run --source=task_manager --omit='*/migrations/*,*/settings.py,*/venv/*,*/.venv/*' -m pytest
+	uv run coverage run --source=task_manager --omit='*/migrations/*,*/settings.py,*/venv/*,*/.venv/*' -m pytest --junitxml=pytest-report.xml
 	uv run coverage xml
 	uv run coverage report --show-missing --skip-covered
