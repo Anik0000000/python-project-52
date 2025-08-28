@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SECRET_KEY: test-secret-key-for-ci
         DJANGO_SETTINGS_MODULE: task_manager.settings
         ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
         ROLLBAR_ENV: development
